@@ -1,0 +1,17 @@
+# --- DEPENDENCIES (The 16,000 files culprit) ---
+node_modules/
+/frontend/node_modules/
+venv/
+/backend/venv/
+__pycache__/
+
+# --- DATASETS & MODELS (The Large Files) ---
+/processed_data/
+*.pth
+*.zip
+
+# --- BUILD OUTPUTS ---
+dist/
+build/
+.DS_Store
+.env

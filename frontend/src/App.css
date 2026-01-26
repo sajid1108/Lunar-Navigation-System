@@ -1,0 +1,121 @@
+/* GLOBAL RESET */
+:root {
+  --bg-dark: #050A19;
+  --cyan: #00F0FF;
+  --magenta: #FF0055;
+  --glass: rgba(0, 15, 30, 0.9);
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--cyan);
+  font-family: 'Rajdhani', sans-serif;
+  margin: 0;
+  overflow: hidden; 
+  height: 100vh;
+  width: 100vw;
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+body::before {
+  content: " "; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 999; background-size: 100% 2px, 3px 100%; pointer-events: none;
+}
+
+.hud-container {
+  height: 100vh; width: 100vw;
+  display: flex; flex-direction: column;
+  padding: 10px; box-sizing: border-box;
+}
+
+/* HEADER */
+.hud-header {
+  height: 50px; flex-shrink: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 2px solid var(--cyan);
+  background: rgba(0, 20, 40, 0.95);
+  margin-bottom: 10px; padding: 0 15px;
+}
+h1 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; text-shadow: 0 0 10px var(--cyan); }
+.subtext { font-size: 0.8rem; color: #8899a6; margin-left: 10px; }
+.blink { animation: blinker 1s linear infinite; color: var(--magenta); }
+@keyframes blinker { 50% { opacity: 0; } }
+
+/* LAYOUT */
+.grid-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr 220px;
+  gap: 15px;
+  flex: 1; min-height: 0; width: 100%;
+}
+
+/* PANELS */
+.panel {
+  background: var(--glass);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 10px; border-radius: 4px;
+  display: flex; flex-direction: column;
+  overflow: hidden; position: relative;
+  min-width: 0; min-height: 0;
+}
+.panel::before, .center-top::before { content: ""; position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 2px solid var(--cyan); border-left: 2px solid var(--cyan); z-index: 10; }
+.panel::after, .center-top::after { content: ""; position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-bottom: 2px solid var(--cyan); border-right: 2px solid var(--cyan); z-index: 10; }
+
+h3 { margin: 0 0 10px 0; color: var(--cyan); font-size: 1rem; border-bottom: 1px solid rgba(0,240,255,0.2); }
+.divider { height: 1px; background: rgba(0,240,255,0.2); margin: 10px 0; }
+
+/* LEFT COL */
+.col-left { gap: 10px; }
+.input-row { display: flex; gap: 5px; }
+.tech-input { background: #000; border: 1px solid var(--cyan); color: var(--cyan); width: 100%; text-align: center; }
+.scan-btn { background: var(--cyan); border: none; font-weight: bold; cursor: pointer; flex: 1; }
+.metrics-compact .m-row { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px; }
+.val { font-family: 'Share Tech Mono'; font-weight: bold; color: #fff; text-shadow: 0 0 5px var(--cyan); }
+
+/* OPTICAL BOX (FIXED COLOR) */
+.optical-box {
+  flex: 1; border: 1px solid var(--cyan); background: #000;
+  position: relative; overflow: hidden; min-height: 150px;
+}
+.optical-box img { 
+  width: 100%; height: 100%; object-fit: cover; 
+  /* REMOVED GRAYSCALE FILTER HERE */
+  filter: contrast(1.2) brightness(1.2); 
+  image-rendering: pixelated; 
+}
+.placeholder-scan { height: 100%; display: flex; align-items: center; justify-content: center; color: #333; }
+
+/* CENTER COL */
+.col-center-container { display: flex; flex-direction: column; gap: 15px; height: 100%; min-height: 0; width: 100%; }
+.center-top { flex: 7; position: relative; border: 1px solid var(--cyan); background: rgba(0, 5, 10, 0.9); display: flex; flex-direction: column; min-height: 0; }
+.plot-wrapper { flex: 1; width: 100%; height: 100%; min-height: 0; }
+.panel-footer { background: rgba(0,20,40,0.9); border-top: 1px solid var(--cyan); padding: 5px; font-size: 0.7rem; text-align: right; color: #8899a6; flex-shrink: 0; }
+.center-bottom { flex: 3; min-height: 0; }
+.analytics-grid { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 10px; height: 100%; min-height: 0; }
+.stats-box { display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+.stat-item { display: flex; justify-content: space-between; border-bottom: 1px dashed #333; }
+.graph-box { position: relative; border: 1px solid #333; background: rgba(0,0,0,0.3); height: 100%; min-height: 0; }
+
+/* RIGHT COL */
+.col-right { gap: 15px; }
+.radar-box { aspect-ratio: 1/1; width: 100%; display: flex; justify-content: center; align-items: center; border: 1px solid var(--magenta); background: rgba(20,0,10,0.3); position: relative; border-radius: 5px; }
+.radar-container { width: 90%; height: 90%; border-radius: 50%; border: 2px solid var(--magenta); position: relative; overflow: hidden; box-shadow: 0 0 15px rgba(255,0,85,0.2); }
+.heatmap-img { width: 100%; height: 100%; object-fit: cover; }
+.radar-sweep { position: absolute; top: 0; left: 50%; width: 50%; height: 50%; background: conic-gradient(from 0deg, transparent 0deg, var(--magenta) 10deg, transparent 60deg); animation: spin 2s infinite linear; transform-origin: bottom left; pointer-events: none; z-index: 10; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.console-box { background: #000; border: 1px dashed var(--cyan); padding: 5px; font-family: 'Share Tech Mono'; font-size: 0.8rem; color: #8899a6; flex: 1; }
+.text-green { color: #00ff00; text-shadow: 0 0 8px #00ff00; }
+.text-red { color: var(--magenta); text-shadow: 0 0 8px var(--magenta); }
+
+/* UI ELEMENTS */
+.bracket { position: absolute; width: 30px; height: 30px; border-color: var(--cyan); border-style: solid; opacity: 0.5; pointer-events: none; z-index: 10; }
+.top-left { top: 10px; left: 10px; border-width: 2px 0 0 2px; }
+.top-right { top: 10px; right: 10px; border-width: 2px 2px 0 0; }
+.bottom-left { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; }
+.bottom-right { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
+.center-reticle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--magenta); font-size: 2rem; opacity: 0.3; pointer-events: none; }
+.overlay-label { position: absolute; top: 0; left: 0; background: var(--cyan); color: #000; padding: 1px 5px; font-size: 0.6rem; font-weight: bold; z-index: 5; }
