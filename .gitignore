@@ -8,6 +8,8 @@ __pycache__/
 # --- DATASETS & MODELS (The Large Files) ---
 /processed_data/
 *.pth
+!backend/lunar_unet_model.pth
+!backend/lunar_sr_model_V2.pth
 *.zip
 
 # --- BUILD OUTPUTS ---
