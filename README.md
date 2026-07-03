@@ -1,10 +1,12 @@
-# Lunar Navigation System
+# 🌕 Lunar.OS – Lunar Orbital Reconnaissance & Navigation System
+
+Lunar.OS is an AI-powered lunar terrain navigation system that uses a **U-Net** segmentation model to detect hazardous terrain and the **A*** algorithm to generate safe navigation paths. The project features a **FastAPI** backend and a **React + Vite** frontend, fully containerized with Docker.
 
 ## 🚀 Quickstart: Run via Docker (Recommended)
 
 You don't need Python, Node.js, or any local dependencies installed to run Lunar.OS. You can run the entire pre-built system using Docker.
 
-**1. Create a file named `docker-compose.yml` anywhere on your computer and paste this exact configuration:**
+**1. Create a file named `docker-compose.yml` anywhere on your computer and paste this configuration:**
 
 ```yaml
 services:
@@ -19,57 +21,26 @@ services:
       - "5173:5173"
     depends_on:
       - backend
-
-
-Start the application:
-
-
-
-```bash
-
-docker compose up
-
 ```
 
+**2. Open a terminal in that same folder and start the system:**
 
+```bash
+docker compose up
+```
 
-Open:
+**3. Access the application:**
 
+* **Frontend UI:** Open http://localhost:5173 in your browser.
+* **Backend API Docs:** Open http://localhost:8000/docs to see the endpoints.
 
+## 🛠️ Tech Stack
 
-\* \*\*Frontend:\*\* http://localhost:5173
+* **Backend:** FastAPI, PyTorch, U-Net, A* Pathfinding
+* **Frontend:** React, Vite
+* **Deployment:** Docker, Docker Compose
 
-\* \*\*API Docs:\*\* http://localhost:8000/docs
+## 📦 Docker Images
 
-
-
-\## 🛠️ Tech Stack
-
-
-
-\* FastAPI
-
-\* PyTorch
-
-\* U-Net
-
-\* A\* Pathfinding
-
-\* React
-
-\* Vite
-
-\* Docker
-
-
-
-\## 📦 Docker Images
-
-
-
-\* \*\*Backend:\*\* `sajid1108/lunar-backend`
-
-\* \*\*Frontend:\*\* `sajid1108/lunar-frontend`
-
-
-
+* **Backend:** `sajid1108/lunar-backend`
+* **Frontend:** `sajid1108/lunar-frontend`
