@@ -1,47 +1,24 @@
-\# 🌕 Lunar.OS – Lunar Orbital Reconnaissance \& Navigation System
+# Lunar Navigation System
 
+## 🚀 Quickstart: Run via Docker (Recommended)
 
+You don't need Python, Node.js, or any local dependencies installed to run Lunar.OS. You can run the entire pre-built system using Docker.
 
-Lunar.OS is an AI-powered lunar terrain navigation system that uses a \*\*U-Net\*\* segmentation model to detect hazardous terrain and the \*\*A\*\*\* algorithm to generate safe navigation paths. The project features a \*\*FastAPI\*\* backend and a \*\*React + Vite\*\* frontend, fully containerized with Docker.
-
-
-
-\## 🚀 Run with Docker
-
-
-
-Create a `docker-compose.yml` file:
-
-
+**1. Create a file named `docker-compose.yml` anywhere on your computer and paste this exact configuration:**
 
 ```yaml
-
 services:
+  backend:
+    image: sajid1108/lunar-backend:latest
+    ports:
+      - "8000:8000"
 
-&#x20; backend:
-
-&#x20;   image: sajid1108/lunar-backend:latest
-
-&#x20;   ports:
-
-&#x20;     - "8000:8000"
-
-
-
-&#x20; frontend:
-
-&#x20;   image: sajid1108/lunar-frontend:latest
-
-&#x20;   ports:
-
-&#x20;     - "5173:5173"
-
-&#x20;   depends\_on:
-
-&#x20;     - backend
-
-```
-
+  frontend:
+    image: sajid1108/lunar-frontend:latest
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
 
 
 Start the application:
