@@ -121,39 +121,56 @@ h3 { margin: 0 0 10px 0; color: var(--cyan); font-size: 1rem; border-bottom: 1px
 .overlay-label { position: absolute; top: 0; left: 0; background: var(--cyan); color: #000; padding: 1px 5px; font-size: 0.6rem; font-weight: bold; z-index: 5; }
 
 @media (max-width: 900px) {
-  body {
-    overflow-y: auto;
+  body { overflow-y: auto; height: auto; min-height: 100vh; }
+  .hud-container { height: auto; min-height: 100vh; padding-bottom: 64px; }
+  .grid-layout { display: block; }
+  .col-center-container { display: contents; }
+  .mobile-panel { display: none; margin-bottom: 0; }
+  .mobile-panel.mobile-active { display: flex; }
+  .center-top { min-height: 360px; }
+  .analytics-grid { 
+    grid-template-columns: 1fr; 
+    gap: 16px; 
     height: auto;
-    min-height: 100vh;
   }
-
-  .hud-container {
-    height: auto;
-    min-height: 100vh;
-    overflow: visible;
+  .graph-box {
+    height: 220px;
+    min-height: 220px;
   }
-
-  .grid-layout {
-    display: flex;
-    flex-direction: column;
+  .stats-box { 
+    justify-content: flex-start; 
     gap: 12px;
+    padding: 10px 0;
   }
-
-  .col-left, .col-right, .col-center-container {
-    width: 100%;
+  .stat-item {
+    padding: 8px 0;
+    font-size: 0.95rem;
   }
-
-  .center-top {
-    min-height: 300px;
+  .center-bottom {
+    height: auto;
+    min-height: auto;
+    padding-bottom: 20px;
   }
-
-  .analytics-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  .radar-box { max-width: 240px; margin: 0 auto; }
+  .mobile-tabs {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    display: flex; z-index: 100;
+    background: rgba(0, 10, 20, 0.98);
+    border-top: 1px solid var(--cyan);
   }
-
-  .radar-box {
-    max-width: 250px;
-    margin: 0 auto;
+  .mobile-tabs button {
+    flex: 1; background: none; border: none;
+    color: #8899a6; font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem; font-weight: 600;
+    padding: 14px 0; letter-spacing: 1px;
+    cursor: pointer;
   }
+  .mobile-tabs button.active {
+    color: var(--cyan);
+    border-top: 2px solid var(--cyan);
+    text-shadow: 0 0 8px var(--cyan);
+  }
+}
+@media (min-width: 901px) {
+  .mobile-tabs { display: none; }
 }

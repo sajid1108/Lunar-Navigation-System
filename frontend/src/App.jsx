@@ -8,7 +8,7 @@ function App() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [showGroundTruth, setShowGroundTruth] = useState(false) // TOGGLE STATE
-  
+  const [activeTab, setActiveTab] = useState('flight')
   const [frames, setFrames] = useState([])
   const [roverTrace, setRoverTrace] = useState({})
   const [pathTrace, setPathTrace] = useState({})
@@ -23,7 +23,6 @@ function App() {
 
   const handleScan = () => {
     setLoading(true)
-    // Reset toggle when scanning new sector
     setShowGroundTruth(false) 
     axios.get(`${import.meta.env.VITE_API_URL}/api/analyze/${sectorId}`)
       .then(res => { setData(res.data); setLoading(false); })
@@ -31,7 +30,6 @@ function App() {
   }
 
   const prepare3DVisuals = () => {
-    // Flatten Spikes (0.05 factor)
     const terrain = data.terrain_z.map(row => row.map(val => val * 0.05));
     
     const pathX = data.path_coords.map(p => p[1])
@@ -71,14 +69,12 @@ function App() {
     return Array(20).fill(Array(20).fill(1));
   }
 
-  // --- NEW: elevation profile data provider used by the inserted graph
   const getGraphData = () => {
     if (!data || !data.path_coords || !data.terrain_z) return { x: [], y: [] };
 
-    const coords = data.path_coords; // assumed format: [ [row, col], ... ]
+    const coords = data.path_coords;
     const y = coords.map(p => (data.terrain_z[p[0]][p[1]] * 0.05) + 1);
 
-    // compute cumulative distance along the path for x axis
     const x = [];
     let cum = 0;
     x.push(0);
@@ -93,7 +89,6 @@ function App() {
 
     return { x, y };
   }
-  // --- end getGraphData
 
   return (
     <div className="hud-container">
@@ -108,10 +103,17 @@ function App() {
         </div>
       </div>
 
+      <div className="mobile-tabs">
+        <button className={activeTab === 'flight' ? 'active' : ''} onClick={() => setActiveTab('flight')}>DECK</button>
+        <button className={activeTab === 'terrain' ? 'active' : ''} onClick={() => setActiveTab('terrain')}>TERRAIN</button>
+        <button className={activeTab === 'analytics' ? 'active' : ''} onClick={() => setActiveTab('analytics')}>DATA</button>
+        <button className={activeTab === 'physics' ? 'active' : ''} onClick={() => setActiveTab('physics')}>RISK</button>
+      </div>
+
       <div className="grid-layout">
         
         {/* LEFT PANEL */}
-        <div className="panel col-left">
+        <div className={`panel col-left mobile-panel ${activeTab === 'flight' ? 'mobile-active' : ''}`}>
           <h3>FLIGHT_DECK</h3>
           <div className="control-group">
             <label>SECTOR_ID</label>
@@ -132,7 +134,6 @@ function App() {
           
           <div className="divider"></div>
           
-          {/* OPTICAL FEED WITH TOGGLE */}
           <h3>OPTICAL_FEED</h3>
           <div className="optical-box">
              {data ? (
@@ -146,7 +147,6 @@ function App() {
                 {showGroundTruth ? "MODE: GROUND_TRUTH [REF]" : "MODE: LIVE_RECONSTRUCTION [AI]"}
              </div>
 
-             {/* THE TOGGLE BUTTON */}
              {data && (
                  <button 
                     onClick={() => setShowGroundTruth(!showGroundTruth)}
@@ -166,7 +166,7 @@ function App() {
 
         {/* CENTER PANEL */}
         <div className="col-center-container">
-            <div className="panel center-top">
+            <div className={`panel center-top mobile-panel ${activeTab === 'terrain' ? 'mobile-active' : ''}`}>
                 <div className="ar-overlay">
                     <div className="bracket top-left"></div>
                     <div className="bracket top-right"></div>
@@ -219,7 +219,7 @@ function App() {
                 <div className="panel-footer">LIDAR_TOPOGRAPHY_3D // REAL-TIME RENDERING</div>
             </div>
 
-            <div className="panel center-bottom">
+            <div className={`panel center-bottom mobile-panel ${activeTab === 'analytics' ? 'mobile-active' : ''}`}>
                 <h3>MISSION ANALYTICS</h3>
                 {data ? (
                     <div className="analytics-grid">
@@ -229,7 +229,6 @@ function App() {
                             <div className="stat-item"><span className="lbl">SAFETY</span><span className="val text-green">{data.metrics.safety}</span></div>
                         </div>
 
-                        {/* ---- INSERTED ELEVATION PROFILE (from your provided block) ---- */}
                         <div className="graph-box">
                             <div className="overlay-label">ELEVATION PROFILE</div>
                             <Plot 
@@ -278,7 +277,7 @@ function App() {
         </div>
 
         {/* RIGHT PANEL */}
-        <div className="panel col-right">
+        <div className={`panel col-right mobile-panel ${activeTab === 'physics' ? 'mobile-active' : ''}`}>
           <h3>PHYSICS_ENGINE</h3>
           <div className="radar-box">
             <div className="radar-container">
