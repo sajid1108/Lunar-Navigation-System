@@ -7,6 +7,13 @@
 
 Lunar.OS is an AI-powered lunar terrain navigation system that uses a **U-Net** segmentation model to detect hazardous terrain and the **A*** algorithm to generate safe navigation paths. The project features a **FastAPI** backend and a **React + Vite** frontend, fully containerized with Docker.
 
+## 🔗 Live Demo
+
+- **Live UI:** https://lunar-navigation-system.vercel.app
+- **Backend API docs:** https://sajidftw-lunar-backend.hf.space/docs
+
+> **Note:** the hosted demo only has a curated subset of sectors loaded (IDs: 1, 151, 301, 451, 601, 751, 901, 1051, 1201, 1351, 1501, 1651, 1801, 1951, 2101, 2251, 2401, 2551, 2701, 2851). Other sector IDs will return a 404 on the live demo. Run locally via Docker (below) for access to the full dataset.
+
 ## 🚀 Quickstart: Run via Docker (Recommended)
 
 You don't need Python, Node.js, or any local dependencies installed to run Lunar.OS. You can run the entire pre-built system using Docker.
@@ -18,7 +25,7 @@ services:
   backend:
     image: sajid1108/lunar-backend:latest
     ports:
-      - "8000:8000"
+      - "7860:7860"
 
   frontend:
     image: sajid1108/lunar-frontend:latest
@@ -37,7 +44,7 @@ docker compose up
 **3. Access the application:**
 
 - **Frontend UI:** http://localhost:5173
-- **Backend API Docs:** http://localhost:8000/docs
+- **Backend API Docs:** http://localhost:7860/docs
 
 ## 🛠️ Tech Stack
 
