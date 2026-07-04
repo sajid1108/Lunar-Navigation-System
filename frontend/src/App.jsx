@@ -4,7 +4,7 @@ import Plot from 'react-plotly.js'
 import './App.css'
 
 function App() {
-  const [sectorId, setSectorId] = useState(45)
+  const [sectorId, setSectorId] = useState(151)
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [showGroundTruth, setShowGroundTruth] = useState(false) // TOGGLE STATE
@@ -25,7 +25,7 @@ function App() {
     setLoading(true)
     // Reset toggle when scanning new sector
     setShowGroundTruth(false) 
-    axios.get(`http://127.0.0.1:8000/api/analyze/${sectorId}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/api/analyze/${sectorId}`)
       .then(res => { setData(res.data); setLoading(false); })
       .catch(err => { console.error(err); setLoading(false); })
   }
