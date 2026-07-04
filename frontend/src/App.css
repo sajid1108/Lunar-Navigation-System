@@ -119,3 +119,41 @@ h3 { margin: 0 0 10px 0; color: var(--cyan); font-size: 1rem; border-bottom: 1px
 .bottom-right { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
 .center-reticle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--magenta); font-size: 2rem; opacity: 0.3; pointer-events: none; }
 .overlay-label { position: absolute; top: 0; left: 0; background: var(--cyan); color: #000; padding: 1px 5px; font-size: 0.6rem; font-weight: bold; z-index: 5; }
+
+@media (max-width: 900px) {
+  body {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .hud-container {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .grid-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .col-left, .col-right, .col-center-container {
+    width: 100%;
+  }
+
+  .center-top {
+    min-height: 300px;
+  }
+
+  .analytics-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .radar-box {
+    max-width: 250px;
+    margin: 0 auto;
+  }
+}
